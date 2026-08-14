@@ -16,7 +16,7 @@ def f3():
 ''',
 '',
 '789113',
-'q1w1e1r1t1q2w2e2r2t2',
+'q1.5w1.5e1.5r1.5t1.5q-2w-2e-2r-2t-2',
 'x1aa2xx3bb4xx5cc6x'
 ]
 for i in test:
