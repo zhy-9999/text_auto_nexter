@@ -23,9 +23,10 @@ def the_xth_cycle(x:int, cycle:list, numbers:list) -> str:
     return out
 def nexter(input_string:str,times:int) -> str:
     input_no_space = ''.join(input_string.split())
-    raw_letters = re.split(r'-?\d+(?:\.\d+)?', input_string)
-    letters = re.split(r'-?\d+(?:\.\d+)?', input_no_space)
-    numbers = re.findall(r'-?\d+(?:\.\d+)?', input_no_space)
+    find_number_re = r'-?\d+(?:\.\d+)?'
+    raw_letters = re.split(find_number_re, input_string)
+    letters = re.split(find_number_re, input_no_space)
+    numbers = re.findall(find_number_re, input_no_space)
     spliter = letters[-1] + letters[0]
     cycle = []
     for i in range(len(letters)-1,-1,-1):
