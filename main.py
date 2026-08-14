@@ -1,6 +1,19 @@
 import re
 
 def console_input(tip: str) -> str:
+#     return '''def f1():
+#     print(67)
+#     printf(1)
+#     return -0.3
+# def f2():
+#     print(67)
+#     printf(2)
+#     return -0.6
+# def f3():
+#     print(67)
+#     printf(3)
+#     return -0.9
+# '''
     input_list = []
     print(tip)
     try:
@@ -39,7 +52,7 @@ def nexter(input_string:str,times:int) -> str:
             output += the_xth_cycle(i,cycle,numbers)
         return output
     else:
-        raise RuntimeError('未找到循环节')
+        raise RuntimeError('在'+input_no_space+'中未找到循环节')
 # print(cycle)
 if __name__ == '__main__':
     # input_string = 
@@ -53,10 +66,5 @@ if __name__ == '__main__':
     finally:
         if output:
             print(output)
-'''def f1():
-    return 3
-def f2():
-    return 6
-def f3():
-    return 9
-'''
+        else:
+            print('错误：返回值为空')
