@@ -21,7 +21,7 @@ def the_xth_cycle(x:int, cycle:list, numbers:list) -> str:
         out += str( linear( numbers[i], numbers[i+nums_per_cycle], x ) )
         out += cycle[i+1]
     return out
-def nexter(input_string:str) -> str:
+def nexter(input_string:str,times:int) -> str:
     input_no_space = ''.join(input_string.split())
     raw_letters = re.split(r'-?\d+(?:\.\d+)?', input_string)
     letters = re.split(r'-?\d+(?:\.\d+)?', input_no_space)
@@ -33,7 +33,6 @@ def nexter(input_string:str) -> str:
             cycle = [raw_letters[0]] + raw_letters[i+1:]
             break
     if cycle:
-        times = int(input('请输入续写项数：'))
         output = ''
         for i in range(times):
             output += the_xth_cycle(i,cycle,numbers)
@@ -42,14 +41,17 @@ def nexter(input_string:str) -> str:
         raise RuntimeError('未找到循环节')
 # print(cycle)
 if __name__ == '__main__':
-    input_string = console_input('请输入要找规律的内容，按Ctrl+C或Ctrl+D结束输入：')
     # input_string = 
+    output = ''
     try:
-        output = nexter(input_string)
-    except RuntimeError:
-        output = '错误：未找到循环节'
+        input_string = console_input('请输入要找规律的内容，按Ctrl+C或Ctrl+D结束输入：')
+        times = int(input('请输入续写项数：'))
+        output = nexter(input_string,times)
+    except Exception as e:
+        output = '错误：' + str(e)
     finally:
-        print(output)
+        if output:
+            print(output)
 '''def f1():
     return 3
 def f2():
