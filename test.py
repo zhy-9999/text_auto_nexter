@@ -1,3 +1,4 @@
+import this
 from main import *
 test = [
 '''def f1():
