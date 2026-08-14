@@ -1,36 +1,59 @@
 import re
-first = []
-print('请输入要找规律的内容，按Ctrl+C或Ctrl+D结束输入：')
-# aa1bb bb1ccaa4bb bb1cc
-try:
-    while True:
-        first.append(input())
-except EOFError:
-    print()
-except KeyboardInterrupt:
-    print()
-second = ''.join(first)
-third = ''.join(second.split())
-raw_letters = re.split(r'-?\d+(?:\.\d+)?', second)
-letters = re.split(r'-?\d+(?:\.\d+)?', third)
-numbers = re.findall(r'-?\d+(?:\.\d+)?', third)
-# print(letters)
-# print(numbers)
-fenge = letters[-1] + letters[0]
-# print(fenge)
-for i in range(len(letters)-1,-1,-1):
-    if fenge == letters[i]:
-        xvnhuan = [raw_letters[0]] + raw_letters[i+1:]
-        break
-# print(xvnhuan)
-def zhixian(y0,y1,x):
-    return str(float(y0) + float(x) * (float(y1) - float(y0)))
-def xiang(x):
-    out = xvnhuan[0]
-    nums_per_xvnhuan = len(xvnhuan) - 1
-    for i in range(len(xvnhuan)-1):
-        out += zhixian(numbers[i],numbers[i+nums_per_xvnhuan],x)
-        out += xvnhuan[i+1]
+
+def console_input(tip: str) -> str:
+    input_list = []
+    print(tip)
+    try:
+        while True:
+            input_list.append(input())
+    except EOFError:
+        print()
+    except KeyboardInterrupt:
+        print()
+    input_string = '\n'.join(input_list) 
+    return input_string
+def linear(y0,y1,x) -> float:
+    return float(y0) + float(x) * (float(y1) - float(y0))
+def the_xth_cycle(x:int, cycle:list, numbers:list) -> str:
+    out = cycle[0]
+    nums_per_cycle = len(cycle) - 1
+    for i in range(len(cycle)-1):
+        out += str( linear( numbers[i], numbers[i+nums_per_cycle], x ) )
+        out += cycle[i+1]
     return out
-for i in range(0,int(input('请输入续写项数：'))):
-    print(xiang(i))
+def nexter(input_string:str) -> str:
+    input_no_space = ''.join(input_string.split())
+    raw_letters = re.split(r'-?\d+(?:\.\d+)?', input_string)
+    letters = re.split(r'-?\d+(?:\.\d+)?', input_no_space)
+    numbers = re.findall(r'-?\d+(?:\.\d+)?', input_no_space)
+    spliter = letters[-1] + letters[0]
+    cycle = []
+    for i in range(len(letters)-1,-1,-1):
+        if spliter == letters[i]:
+            cycle = [raw_letters[0]] + raw_letters[i+1:]
+            break
+    if cycle:
+        times = int(input('请输入续写项数：'))
+        output = ''
+        for i in range(times):
+            output += the_xth_cycle(i,cycle,numbers)
+        return output
+    else:
+        raise RuntimeError('未找到循环节')
+# print(cycle)
+if __name__ == '__main__':
+    input_string = console_input('请输入要找规律的内容，按Ctrl+C或Ctrl+D结束输入：')
+    # input_string = 
+    try:
+        output = nexter(input_string)
+    except RuntimeError:
+        output = '错误：未找到循环节'
+    finally:
+        print(output)
+'''def f1():
+    return 3
+def f2():
+    return 6
+def f3():
+    return 9
+'''
